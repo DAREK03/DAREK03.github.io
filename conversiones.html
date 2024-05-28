@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversiones - Física II</title>
+    <style>
+        body {
+            background-color: #d3d3d3; /* Gris mate */
+            color: #000000; /* Letras en negro */
+            font-family: Arial, sans-serif; /* Cambia esto por la fuente que prefieras */
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f2f2f2; /* Gris claro */
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #cc4b4b; /* Dusty red */
+            margin: 0;
+            text-align: center;
+        }
+
+        .content-box {
+            background-color: #f2f2f2; /* Gris claro */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"], select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #cc4b4b; /* Dusty red */
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b54040;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #cc4b4b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo1.png" alt="Logo 1" class="logo" style="height: 50px;">
+        <h1>Conversiones</h1>
+        <img src="logo2.png" alt="Logo 2" class="logo" style="height: 50px;">
+    </header>
+    
+    <div class="content-box">
+        <form id="conversion-form">
+            <label for="value">Valor:</label>
+            <input type="number" id="value" name="value" required>
+
+            <label for="unit">Unidad:</label>
+            <select id="unit" name="unit" required>
+                <option value="cm">Centímetros (cm)</option>
+                <option value="m">Metros (m)</option>
+                <option value="km">Kilómetros (km)</option>
+                <option value="g">Gramos (g)</option>
+                <option value="kg">Kilogramos (kg)</option>
+                <option value="s">Segundos (s)</option>
+                <option value="min">Minutos (min)</option>
+                <option value="h">Horas (h)</option>
+            </select>
+
+            <button type="submit">Convertir</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Prefijo</th>
+                <th>Símbolo</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mega</td>
+                <td>M</td>
+                <td>10<sup>6</sup></td>
+            </tr>
+            <tr>
+                <td>Kilo</td>
+                <td>k</td>
+                <td>10<sup>3</sup></td>
+            </tr>
+            <tr>
+                <td>Hecto</td>
+                <td>h</td>
+                <td>10<sup>2</sup></td>
+            </tr>
+            <tr>
+                <td>Deca</td>
+                <td>da</td>
+                <td>10<sup>1</sup></td>
+            </tr>
+            <tr>
+                <td>Deci</td>
+                <td>d</td>
+                <td>10<sup>-1</sup></td>
+            </tr>
+            <tr>
+                <td>Centi</td>
+                <td>c</td>
+                <td>10<sup>-2</sup></td>
+            </tr>
+            <tr>
+                <td>Mili</td>
+                <td>m</td>
+                <td>10<sup>-3</sup></td>
+            </tr>
+            <tr>
+                <td>Micro</td>
+                <td>μ</td>
+                <td>10<sup>-6</sup></td>
+            </tr>
+            <tr>
+                <td>Nano</td>
+                <td>n</td>
+                <td>10<sup>-9</sup></td>
+            </tr>
+            <tr>
+                <td>Pico</td>
+                <td>p</td>
+                <td>10<sup>-12</sup></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('conversion-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const value = parseFloat(document.getElementById('value').value);
+            const unit = document.getElementById('unit').value;
+            let result;
+            let scientificNotation;
+
+            switch(unit) {
+                case 'cm':
+                    result = value * 0.01;
+                    scientificNotation = `${value} cm = ${value} * 10^-2 m`;
+                    break;
+                case 'm':
+                    result = value;
+                    scientificNotation = `${value} m = ${value} * 10^0 m`;
+                    break;
+                case 'km':
+                    result = value * 1000;
+                    scientificNotation = `${value} km = ${value} * 10^3 m`;
+                    break;
+                case 'g':
+                    result = value * 0.001;
+                    scientificNotation = `${value} g = ${value} * 10^-3 kg`;
+                    break;
+                case 'kg':
+                    result = value;
+                    scientificNotation = `${value} kg = ${value} * 10^0 kg`;
+                    break;
+                case 's':
+                    result = value;
+                    scientificNotation = `${value} s = ${value} * 10^0 s`;
+                    break;
+                case 'min':
+                    result = value * 60;
+                    scientificNotation = `${value} min = ${value} * 60 s`;
+                    break;
+                case 'h':
+                    result = value * 3600;
+                    scientificNotation = `${value} h = ${value} * 3600 s`;
+                    break;
+                default:
+                    result = 'Unidad no soportada';
+                    scientificNotation = '';
+            }
+
+            document.getElementById('result').textContent = `Resultado: ${result} en unidad base (${unit === 'cm' || unit === 'm' || unit === 'km' ? 'metros' : (unit === 'g' || unit === 'kg' ? 'kilogramos' : 'segundos')})\nNotación científica: ${scientificNotation}`;
+        });
+    </script>
+    <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+</body>
+</html>

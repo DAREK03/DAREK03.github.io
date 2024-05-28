@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo del Campo Magnético</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #cc4b4b;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #cc4b4b;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            height: 50px;
+        }
+        .header h1 {
+            margin: 0 20px;
+            flex-grow: 1;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+        input, select, button {
+            display: block;
+            margin-top: 5px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .formula {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        button {
+            background-color: #cc4b4b; /* Dusty red */
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #b54040;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo1.png" alt="Logo 1">
+            <h1>Calculadora de Campo Magnético</h1>
+            <img src="logo2.png" alt="Logo 2">
+        </div>
+        <form id="campoMagneticoForm">
+            <label for="tipoAlambre">Tipo de Alambre:</label>
+            <select id="tipoAlambre" onchange="mostrarFormula()">
+                <option value="infinito">Infinito</option>
+                <option value="finito">Finito</option>
+            </select>
+
+            <div id="formularioCampos">
+                <label for="corriente">Corriente (I) en amperios:</label>
+                <input type="number" id="corriente" required>
+                
+                <label for="distancia">Distancia (r) en metros:</label>
+                <input type="number" id="distancia" step="any" required>
+                
+                <div id="angulos" style="display: none;">
+                    <label for="angulo1">Ángulo θ1 (en grados):</label>
+                    <input type="number" id="angulo1">
+                    
+                    <label for="angulo2">Ángulo θ2 (en grados):</label>
+                    <input type="number" id="angulo2">
+                </div>
+            </div>
+            
+            <button type="button" onclick="calcularCampoMagnetico()">Calcular</button>
+        </form>
+        
+        <div id="formula" class="formula" style="display: none;"></div>
+
+        <h2>Resultados:</h2>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function mostrarFormula() {
+            const tipoAlambre = document.getElementById('tipoAlambre').value;
+            const formulaDiv = document.getElementById('formula');
+            const angulosDiv = document.getElementById('angulos');
+            if (tipoAlambre === 'infinito') {
+                formulaDiv.innerHTML = `
+                    <strong>Fórmula para Alambre Infinito:</strong><br>
+                    B = (μ₀ * I) / (2π * r)<br>
+                    <em>Donde:</em><br>
+                    B = Campo Magnético (Tesla)<br>
+                    μ₀ = Permeabilidad magnética del vacío (4π x 10⁻⁷ T·m/A)<br>
+                    I = Corriente (Amperios)<br>
+                    r = Distancia al alambre (Metros)
+                `;
+                angulosDiv.style.display = 'none';
+            } else if (tipoAlambre === 'finito') {
+                formulaDiv.innerHTML = `
+                    <strong>Fórmula para Alambre Finito:</strong><br>
+                    B = (μ₀ * I / (4π * r)) * (cos(θ₁) - cos(θ₂))<br>
+                    <em>Donde:</em><br>
+                    B = Campo Magnético (Tesla)<br>
+                    μ₀ = Permeabilidad magnética del vacío (4π x 10⁻⁷ T·m/A)<br>
+                    I = Corriente (Amperios)<br>
+                    r = Distancia al alambre (Metros)<br>
+                    θ₁ y θ₂ = Ángulos en grados
+                `;
+                angulosDiv.style.display = 'block';
+            }
+            formulaDiv.style.display = 'block';
+        }
+
+        function calcularCampoMagnetico() {
+            // Constante de permeabilidad magnética en el vacío (T·m/A)
+            const mu0 = 4 * Math.PI * 1e-7;
+
+            // Obtener valores ingresados por el usuario
+            const corriente = parseFloat(document.getElementById('corriente').value);
+            const distancia = parseFloat(document.getElementById('distancia').value);
+            const tipoAlambre = document.getElementById('tipoAlambre').value;
+
+            // Validar los valores ingresados
+            if (isNaN(corriente) || isNaN(distancia) || distancia <= 0) {
+                alert('Por favor, ingrese valores válidos.');
+                return;
+            }
+
+            let resultado;
+
+            if (tipoAlambre === 'infinito') {
+                // Campo magnético para un alambre infinito (B = μ0 * I / (2π * r))
+                resultado = (mu0 * corriente) / (2 * Math.PI * distancia);
+            } else if (tipoAlambre === 'finito') {
+                const angulo1 = parseFloat(document.getElementById('angulo1').value);
+                const angulo2 = parseFloat(document.getElementById('angulo2').value);
+
+                if (isNaN(angulo1) || isNaN(angulo2)) {
+                    alert('Por favor, ingrese valores válidos para los ángulos.');
+                    return;
+                }
+
+                // Convertir ángulos de grados a radianes
+                const theta1 = angulo1 * (Math.PI / 180);
+                const theta2 = angulo2 * (Math.PI / 180);
+
+                // Campo magnético para un alambre finito (B = (μ0 * I / (4π * r)) * (cos(θ1) - cos(θ2)))
+                resultado = (mu0 * corriente) / (4 * Math.PI * distancia) * (Math.cos(theta1) - Math.cos(theta2));
+            }
+
+            // Mostrar el resultado
+            document.getElementById('resultado').innerText = `Campo Magnético: ${resultado.toFixed(6)} T`;
+        }
+
+        // Inicializar la página con la fórmula del alambre infinito
+        window.onload = mostrarFormula;
+    </script>
+    <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Capacitancia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #4b8fcc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #4b8fcc;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            height: 50px;
+        }
+        .header h1 {
+            margin: 0 20px;
+            flex-grow: 1;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+        input, button {
+            display: block;
+            margin-top: 5px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .formula {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4b8fcc; /* Light blue */
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4078b4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="logo1.png" alt="Logo 1">
+            <h1>Calculadora de Capacitancia</h1>
+            <img src="logo2.png" alt="Logo 2">
+        </div>
+        <form id="capacitanciaForm">
+            <label for="carga">Carga (Q) en coulombios:</label>
+            <input type="number" id="carga" required>
+            
+            <label for="voltaje">Voltaje (V) en voltios:</label>
+            <input type="number" id="voltaje" required>
+
+            <button type="button" onclick="calcularCapacitancia()">Calcular</button>
+        </form>
+        
+        <div id="formula" class="formula" style="display: none;">
+            <strong>Fórmula para Capacitancia:</strong><br>
+            C = Q / V<br>
+            <em>Donde:</em><br>
+            C = Capacitancia (Faradios)<br>
+            Q = Carga (Coulombios)<br>
+            V = Voltaje (Voltios)
+        </div>
+
+        <h2>Resultados:</h2>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function calcularCapacitancia() {
+            const carga = parseFloat(document.getElementById('carga').value);
+            const voltaje = parseFloat(document.getElementById('voltaje').value);
+
+            // Validar los valores ingresados
+            if (isNaN(carga) || isNaN(voltaje) || voltaje <= 0) {
+                alert('Por favor, ingrese valores válidos.');
+                return;
+            }
+
+            // Calcular la capacitancia (C = Q / V)
+            const capacitancia = carga / voltaje;
+
+            // Mostrar el resultado
+            document.getElementById('resultado').innerText = `Capacitancia: ${capacitancia.toFixed(6)} F`;
+
+            // Mostrar la fórmula
+            document.getElementById('formula').style.display = 'block';
+        }
+    </script>
+    <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+</body>
+</html>

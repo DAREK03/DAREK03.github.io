@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórmulas Importantes - Física II</title>
+    <style>
+        body {
+            background-color: #d3d3d3; /* Gris mate */
+            color: #000000; /* Letras en negro */
+            font-family: Arial, sans-serif; /* Cambia esto por la fuente que prefieras */
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f2f2f2; /* Gris claro */
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #cc4b4b; /* Dusty red */
+            margin: 0;
+            text-align: center;
+        }
+
+        .content-box {
+            background-color: #f2f2f2; /* Gris claro */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .formula-section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #cc4b4b;
+            margin-bottom: 10px;
+        }
+
+        .formula {
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #cc4b4b; /* Dusty red */
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #b54040;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <header>
+        <img src="logo1.png" alt="Logo 1" class="logo" style="height: 50px;">
+        <h1>Fórmulas Importantes</h1>
+        <img src="logo2.png" alt="Logo 2" class="logo" style="height: 50px;">
+    </header>
+
+    <div class="content-box">
+        <div class="formula-section">
+            <h2>Electrostática</h2>
+            <div class="formula">
+                <strong>Ley de Coulomb:</strong> <br>
+                \( F = k_e \frac{|q_1 q_2|}{r^2} \)
+            </div>
+            <div class="formula">
+                <strong>Campo Eléctrico:</strong> <br>
+                \( E = \frac{F}{q} = k_e \frac{Q}{r^2} \)
+            </div>
+            <div class="formula">
+                <strong>Potencial Eléctrico:</strong> <br>
+                \( V = k_e \frac{Q}{r} \)
+            </div>
+            <div class="formula">
+                <strong>Energía Potencial Eléctrica:</strong> <br>
+                \( U = k_e \frac{q_1 q_2}{r} \)
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <h2>Magnetismo</h2>
+            <div class="formula">
+                <strong>Fuerza de Lorentz:</strong> <br>
+                \( F = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}) \)
+            </div>
+            <div class="formula">
+                <strong>Fuerza Magnética sobre un Conductor:</strong> <br>
+                \( F = I (\mathbf{L} \times \mathbf{B}) \)
+            </div>
+            <div class="formula">
+                <strong>Campo Magnético de un Solenoide:</strong> <br>
+                \( B = \mu_0 n I \)
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <h2>Electromagnetismo</h2>
+            <div class="formula">
+                <strong>Ley de Faraday:</strong> <br>
+                \( \mathcal{E} = -\frac{d\Phi_B}{dt} \)
+            </div>
+            <div class="formula">
+                <strong>Inductancia:</strong> <br>
+                \( \mathcal{E} = -L \frac{dI}{dt} \)
+            </div>
+            <div class="formula">
+                <strong>Energía Almacenada en un Inductor:</strong> <br>
+                \( U = \frac{1}{2} L I^2 \)
+            </div>
+            <div class="formula">
+                <strong>Ecuaciones de Maxwell:</strong> <br>
+                \[
+                \begin{aligned}
+                \nabla \cdot \mathbf{E} &= \frac{\rho}{\epsilon_0} \\
+                \nabla \cdot \mathbf{B} &= 0 \\
+                \nabla \times \mathbf{E} &= -\frac{\partial \mathbf{B}}{\partial t} \\
+                \nabla \times \mathbf{B} &= \mu_0 \mathbf{J} + \mu_0 \epsilon_0 \frac{\partial \mathbf{E}}{\partial t}
+                \end{aligned}
+                \]
+            </div>
+        </div>
+    </div>
+
+    <button onclick="window.location.href='index.html'">Volver al Inicio</button>
+</body>
+</html>
